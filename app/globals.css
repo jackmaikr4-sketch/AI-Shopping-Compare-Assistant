@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; --foreground: #172033; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  color: var(--foreground);
+  background: radial-gradient(circle at 10% 0%, rgba(82,111,255,.13), transparent 28rem), radial-gradient(circle at 86% 12%, rgba(149,74,255,.11), transparent 25rem), #fff;
+}
+button, input, select { font: inherit; }
+@layer components { .focus-ring { @apply focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2; } }
