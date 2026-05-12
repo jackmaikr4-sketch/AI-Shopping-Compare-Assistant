@@ -1,0 +1,9 @@
+import { CheckCircle2, Sparkles } from "lucide-react";
+import type { AnalysisResult as AnalysisResultType } from "@/types/product";
+
+export function AnalysisResult({ analysis, loadingStep }: { analysis: AnalysisResultType | null; loadingStep: string | null }) {
+  if (loadingStep) return <section className="rounded-[24px] border border-indigo-100 bg-white p-5 shadow-card"><div className="flex items-center gap-3"><Sparkles className="h-5 w-5 animate-pulse text-indigo-600" /><div><p className="font-semibold text-ink">{loadingStep}</p><p className="mt-1 text-xs text-muted">正在调用本地模拟接口，约 1 到 2 秒完成。</p></div></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-indigo-50"><div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-indigo-500 to-sky-500" /></div></section>;
+  if (!analysis) return null;
+  const groups = [["关键词", analysis.keywords], ["颜色", [analysis.color]], ["风格", analysis.style], ["可能用途", analysis.usage]] as const;
+  return <section className="rounded-[24px] border border-line bg-white p-5 shadow-card"><div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-sm font-semibold text-indigo-700">AI 模拟识别结果</p><h2 className="mt-1 text-2xl font-semibold text-ink">{analysis.category}</h2></div><span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700"><CheckCircle2 className="h-4 w-4" />置信度 {Math.round(analysis.confidence * 100)}%</span></div><div className="mt-5 grid gap-3 md:grid-cols-4">{groups.map(([label, values]) => <div key={label} className="rounded-2xl bg-surface p-4"><p className="text-xs font-semibold text-muted">{label}</p><div className="mt-3 flex flex-wrap gap-2">{values.map((v) => <span key={v} className="rounded-full bg-white px-3 py-1 text-xs font-medium text-ink shadow-sm">{v}</span>)}</div></div>)}</div></section>;
+}
