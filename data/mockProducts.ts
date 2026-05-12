@@ -1,8 +1,10 @@
 import type { Product } from "@/types/product";
 
+type ProductRow = [string, string, Product["platform"], number, number, number, number, number, string, string, string, number, string[], string[]];
+
 const img = "/products/placeholder.svg";
 
-export const mockProducts: Product[] = [
+const rows: ProductRow[] = [
   ["sg-001", "复古黑色方框墨镜 大框显脸小通勤太阳镜", "淘宝", 59, 129, 18200, 4.8, 4620, "七月造型配饰", "48小时内发货，包邮", "七天无理由退货，赠运费险", 94, ["显脸小", "款式百搭", "发货快"], ["镜片易留指纹", "包装普通"]],
   ["sg-002", "黑色大框太阳镜 女款复古高级感防晒墨镜", "京东", 89, 169, 12600, 4.9, 3180, "晴川眼镜官方旗舰店", "京东物流，次日达", "七天无理由退货，价保7天", 91, ["镜架扎实", "售后响应快", "佩戴舒适"], ["价格略高", "盒子偏大"]],
   ["sg-003", "学生党平价黑框墨镜 防紫外线显瘦太阳镜", "拼多多", 29.9, 69, 56400, 4.5, 8820, "潮流小物集合店", "包邮，72小时内发货", "支持退货，部分订单赠运费险", 86, ["价格低", "拍照好看", "重量轻"], ["质感一般", "色差反馈"]],
@@ -15,14 +17,30 @@ export const mockProducts: Product[] = [
   ["sg-010", "直播热卖黑框墨镜 大脸友好显瘦太阳镜", "抖音商城", 65, 139, 45200, 4.6, 6760, "野生穿搭间", "48小时内发货，包邮", "七天无理由退货，赠运费险", 87, ["大脸友好", "销量高", "活动价稳定"], ["镜片偏暗", "包装压痕"]],
   ["sg-011", "源头工厂黑色方框墨镜 跨境同款太阳镜", "1688", 22.5, 49, 31800, 4.2, 980, "台州晨光眼镜源头厂", "现货48小时内发，量大可议", "质量问题可退换", 85, ["源头价", "款式多", "适合拿样"], ["零售体验弱", "退换门槛高"]],
   ["sg-012", "设计师感黑框墨镜 复古通勤拍照太阳镜", "小红书商城", 158, 258, 3900, 4.9, 1120, "Daily Icon Studio", "品牌仓包邮，72小时内发货", "七天无理由退货，赠运费险", 92, ["质感高级", "拍照出片", "售后清晰"], ["单价最高", "发货略慢"]]
-].map(([id, title, platform, price, originalPrice, sales, rating, reviewCount, shopName, shipping, returnPolicy, similarityScore, positiveTags, negativeTags]) => ({
-  id, title, platform, image: img, price, originalPrice, sales, rating, reviewCount, shopName, shipping, returnPolicy, similarityScore, positiveTags, negativeTags,
+];
+
+export const mockProducts: Product[] = rows.map(([id, title, platform, price, originalPrice, sales, rating, reviewCount, shopName, shipping, returnPolicy, similarityScore, positiveTags, negativeTags]) => ({
+  id,
+  title,
+  platform,
+  image: img,
+  price,
+  originalPrice,
+  sales,
+  rating,
+  reviewCount,
+  shopName,
+  shipping,
+  returnPolicy,
+  similarityScore,
+  positiveTags,
+  negativeTags,
   reviewSummary: {
     positives: `${positiveTags.join("、")} 是评论里最常见的好评点。`,
     negatives: `${negativeTags.join("、")} 是需要注意的差评点。`,
     advice: price < 40 ? "适合低预算尝鲜，建议确认售后后再下单。" : similarityScore > 90 ? "相似度和口碑都不错，适合作为优先候选。" : "适合放入对比池，结合价格和售后再决定。"
   },
   productUrl: "#"
-})) as Product[];
+}));
 
 export const platforms = Array.from(new Set(mockProducts.map((item) => item.platform)));
